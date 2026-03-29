@@ -20,21 +20,25 @@ API simples de integração com IA que responde perguntas com streaming de respo
 ## 🔧 Instalação
 
 1. Clone o repositório e navegue até o diretório:
+
 ```bash
 cd ai-streaming-api
 ```
 
 2. Instale as dependências:
+
 ```bash
 npm install
 ```
 
 3. Configure as variáveis de ambiente:
+
 ```bash
 cp .env.example .env
 ```
 
 4. Edite o arquivo `.env` e adicione sua chave da API OpenAI:
+
 ```env
 OPENAI_API_KEY=sk-...
 PORT=3000
@@ -43,11 +47,13 @@ PORT=3000
 ## 🎮 Como usar
 
 ### Iniciar o servidor de desenvolvimento:
+
 ```bash
 npm run dev
 ```
 
 ### Compilar para produção:
+
 ```bash
 npm run build
 npm start
@@ -56,11 +62,13 @@ npm start
 ## 📡 Endpoints da API
 
 ### 1. Health Check
+
 ```
 GET /health
 ```
 
 **Resposta:**
+
 ```json
 {
   "status": "ok",
@@ -70,11 +78,13 @@ GET /health
 ```
 
 ### 2. Chat com Histórico em Memória (Streaming)
+
 ```
 POST /api/chat
 ```
 
 **Body:**
+
 ```json
 {
   "message": "Explique o que é TypeScript",
@@ -85,12 +95,14 @@ POST /api/chat
 ```
 
 **Parâmetros:**
+
 - `message` (obrigatório): A mensagem do usuário
 - `sessionId` (opcional): ID da sessão para manter histórico. Se não enviado, uma nova sessão é criada
 - `model` (opcional): Modelo da OpenAI (padrão: `gpt-4.1`)
 - `systemPrompt` (opcional): Prompt de sistema para nova sessão
 
 **Resposta:** Stream de eventos (SSE)
+
 ```
 data: {"sessionId":"abc-123-def"}
 
@@ -106,17 +118,20 @@ data: {"done":true}
 ```
 
 **Como funciona o histórico:**
+
 - O servidor mantém todas as mensagens em memória usando o `sessionId`
 - A cada nova mensagem, todo o histórico é enviado para a IA
 - A IA entende o contexto completo da conversa
 - Sessões antigas (>1 hora) são automaticamente removidas
 
 ### 3. Obter Histórico da Conversa
+
 ```
 GET /api/chat/:sessionId
 ```
 
 **Resposta:**
+
 ```json
 {
   "sessionId": "abc-123-def",
@@ -130,11 +145,13 @@ GET /api/chat/:sessionId
 ```
 
 ### 4. Deletar Conversa
+
 ```
 DELETE /api/chat/:sessionId
 ```
 
 **Resposta:**
+
 ```json
 {
   "message": "Conversation deleted successfully"
@@ -146,6 +163,7 @@ DELETE /api/chat/:sessionId
 Abra o arquivo `client.html` no navegador para testar a API com interface gráfica.
 
 **Funcionalidades do cliente:**
+
 - ✅ Interface moderna estilo ChatGPT
 - ✅ Streaming em tempo real
 - ✅ Memória de conversação automática
@@ -188,7 +206,3 @@ curl -X DELETE http://localhost:3000/api/chat/abc-123-def
 ## 🔒 Segurança
 
 ⚠️ **Importante**: Nunca commit sua chave da API OpenAI para repositórios públicos. Sempre use variáveis de ambiente.
-
-## 📄 Licença
-
-ISC
