@@ -61,7 +61,7 @@ export async function processarMensagem(mensagemUsuario: string): Promise<string
 
         // PASSO 1: Primeira chamada à IA com as tools disponíveis
         let response = await openai.chat.completions.create({
-            model: "gpt-4-turbo-preview",
+            model: "gpt-4o",
             messages: conversationHistory,
             tools: toolDefinitions,
             tool_choice: "auto" // IA decide se usa ou não uma tool
@@ -97,7 +97,7 @@ export async function processarMensagem(mensagemUsuario: string): Promise<string
 
             // PASSO 5: Chama a IA novamente com os resultados das tools
             response = await openai.chat.completions.create({
-                model: "gpt-4-turbo-preview",
+                model: "gpt-4o",
                 messages: conversationHistory,
                 tools: toolDefinitions,
                 tool_choice: "auto"
